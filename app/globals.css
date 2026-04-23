@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  overflow-x: clip;
+  scroll-behavior: smooth;
+}
+
+/* Utility class: section tag (eyebrow) */
+.sec-tag {
+  @apply text-[11px] font-bold tracking-[0.14em] uppercase text-accent mb-2.5 block;
+}
+
+/* Utility class: section title with underline */
+.sec-title {
+  @apply font-display text-navy font-extrabold leading-[1.08] tracking-[-1.5px] mt-0 mb-0;
+  font-size: clamp(30px, 3.5vw, 48px);
+}
+.sec-title::after {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 3px;
+  background: theme(colors.accent);
+  margin-top: 16px;
+}
+
+/* Section subtitle */
+.sec-sub {
+  @apply text-base text-muted leading-[1.75] font-light mt-3 max-w-[520px];
+}
+
+/* Reveal on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.65s ease,
+    transform 0.65s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hero animations */
+.hero-eyebrow-anim {
+  opacity: 0;
+  animation: fadeUp 0.6s 0.1s forwards;
+}
+.hero-title-anim {
+  opacity: 0;
+  animation: fadeUp 0.7s 0.25s forwards;
+}
+.hero-sub-anim {
+  opacity: 0;
+  animation: fadeUp 0.7s 0.4s forwards;
+}
+.hero-actions-anim {
+  opacity: 0;
+  animation: fadeUp 0.7s 0.55s forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Background photo helper (for cards with image backgrounds) */
+.bg-photo {
+  position: absolute;
+  inset: 0;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  z-index: 0;
+}
