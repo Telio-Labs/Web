@@ -21,16 +21,10 @@ export const metadata: Metadata = {
   description:
     "Senior engineering and product leadership — helping startups, enterprises, and agencies build software that scales.",
   icons: {
-    icon: [
-      { url: "/favicon.ico" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-    ],
-    apple: [
-      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
-    ],
-    shortcut: ["/favicon.ico"],
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
-  manifest: "/site.webmanifest",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black",
@@ -39,8 +33,6 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
   themeColor: "#111111",
 };
 
