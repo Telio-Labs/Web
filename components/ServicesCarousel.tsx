@@ -46,6 +46,22 @@ const ITEMS: Item[] = [
     gradient:
       "linear-gradient(150deg, rgba(20,16,58,.78), rgba(36,24,88,.82))",
   },
+  {
+    title: "Custom AI &\nML Solutions",
+    label: "AI & ML",
+    desc: "Models, predictions, and intelligent systems built for your specific data — not generic tools. Real AI for real business outcomes.",
+    image:
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1600&q=80",
+    gradient: "linear-gradient(150deg, rgba(4,8,32,.85), rgba(16,8,48,.88))",
+  },
+  {
+    title: "Agentic AI\nSystems",
+    label: "Agentic AI",
+    desc: "AI that doesn't just answer — it acts. Autonomous systems that execute tasks, make decisions, and get things done on your behalf.",
+    image:
+      "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1600&q=80",
+    gradient: "linear-gradient(150deg, rgba(8,4,40,.85), rgba(24,8,60,.88))",
+  },
 ];
 
 const contentVariants = {

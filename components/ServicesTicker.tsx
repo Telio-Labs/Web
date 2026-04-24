@@ -16,57 +16,63 @@ const SERVICES: Service[] = [
     tag: "Engineering",
     title: "Custom Software Development",
     value: "Software built around your business — not the other way around.",
-    image:
-      "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800&q=80",
     overlay: "rgba(6,12,24,.85), rgba(6,12,24,.92)",
   },
   {
     tag: "Mobile",
     title: "Mobile Apps",
-    value:
-      "iOS & Android apps people actually use — built for retention, not just launch.",
-    image:
-      "https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=800&q=80",
+    value: "iOS & Android apps people actually use — built for retention, not just launch.",
+    image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=800&q=80",
     overlay: "rgba(13,31,60,.85), rgba(13,31,60,.92)",
   },
   {
     tag: "Web",
     title: "Web Platforms & Digital Experiences",
     value: "Fast, conversion-ready platforms that scale without breaking.",
-    image:
-      "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=800&q=80",
     overlay: "rgba(17,34,68,.85), rgba(17,34,68,.92)",
   },
   {
     tag: "Cloud",
     title: "DevOps & Cloud Infrastructure",
     value: "Ship faster. Break less. Scale without surprises.",
-    image:
-      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80",
     overlay: "rgba(10,37,96,.85), rgba(10,37,96,.92)",
   },
   {
     tag: "Data",
     title: "Database Engineering & Optimization",
     value: "Your data, fast and clean — no matter how much you grow.",
-    image:
-      "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?auto=format&fit=crop&w=800&q=80",
     overlay: "rgba(15,30,80,.85), rgba(15,30,80,.92)",
   },
   {
     tag: "Security",
     title: "Cybersecurity Solutions",
     value: "Protect what you've built. Stay compliant. Sleep better.",
-    image:
-      "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80",
     overlay: "rgba(26,31,82,.85), rgba(26,31,82,.92)",
+  },
+  {
+    tag: "AI & ML",
+    title: "Custom AI & ML Solutions",
+    value: "Models, predictions, and intelligent systems built for your specific data and business outcomes.",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80",
+    overlay: "rgba(4,8,32,.85), rgba(16,8,48,.92)",
+  },
+  {
+    tag: "Agentic AI",
+    title: "Agentic AI Systems",
+    value: "AI that doesn't just answer — it acts. Autonomous systems that execute tasks, make decisions, and get things done.",
+    image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80",
+    overlay: "rgba(8,4,40,.85), rgba(24,8,60,.92)",
   },
   {
     tag: "Social Media & Paid Ads",
     title: "Digital Marketing",
     value: "More leads. Lower CAC. Results you can actually measure.",
-    image:
-      "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=800&q=80",
     overlay: "rgba(59,31,110,.85), rgba(59,31,110,.92)",
   },
 ];
@@ -97,7 +103,7 @@ export default function ServicesTicker() {
         const half = getHalfWidth();
         if (s.offset >= half) s.offset -= half;
       }
-      track.style.transform = `translateX(-${s.offset}px)`;
+      track.style.transform = "translateX(-" + s.offset + "px)";
       raf = requestAnimationFrame(loop);
     };
 
@@ -180,11 +186,7 @@ export default function ServicesTicker() {
   const doubled = [...SERVICES, ...SERVICES];
 
   return (
-    <section
-      id="services-all"
-      className="py-16 bg-bg border-t border-border overflow-hidden max-[600px]:py-12"
-    >
-      {/* Header centrado */}
+    <section id="services-all" className="py-16 bg-bg border-t border-border overflow-hidden max-[600px]:py-12">
       <motion.div
         initial={{ opacity: 0, y: 28 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -236,7 +238,6 @@ export default function ServicesTicker() {
         </motion.div>
       </motion.div>
 
-      {/* Track del ticker */}
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -248,56 +249,56 @@ export default function ServicesTicker() {
           ref={trackRef}
           className="flex gap-4 pb-2 cursor-grab select-none will-change-transform"
         >
-          {doubled.map((s, i) => (
-            <motion.div
-              key={i}
-              whileHover={{
-                y: -10,
-                scale: 1.02,
-                transition: { type: "spring", stiffness: 300, damping: 20 },
-              }}
-              className="flex-[0_0_320px] h-[420px] rounded-2xl p-9 px-8 flex flex-col justify-between relative overflow-hidden text-white group max-[900px]:flex-[0_0_280px] max-[900px]:h-[380px] max-[600px]:flex-[0_0_260px] max-[600px]:h-[340px] max-[600px]:p-7 max-[600px]:rounded-2xl"
-              style={{
-                background: `linear-gradient(${s.overlay}), url('${s.image}') center/cover no-repeat`,
-              }}
-            >
-              {/* Hover glow sutil */}
-              <div className="absolute inset-0 bg-gradient-to-br from-accent-light/0 to-accent-light/0 group-hover:from-accent-light/10 group-hover:to-transparent transition-all duration-500 pointer-events-none" />
-
-              <div className="relative z-[1]">
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  className="text-[11px] font-semibold tracking-[0.1em] uppercase mb-5 inline-block px-3 py-1 rounded-full bg-white/10 border border-white/15 backdrop-blur-sm"
-                  style={{ color: "#A8BEFF" }}
-                >
-                  {s.tag}
-                </motion.div>
-
-                <h3 className="font-display text-[28px] font-extrabold tracking-[-0.8px] leading-[1.1] mb-4 max-[600px]:text-[22px]">
-                  {s.title}
-                </h3>
-
-                <p className="text-sm leading-[1.7] font-light opacity-75 max-w-[240px]">
-                  {s.value}
-                </p>
-              </div>
-
-              <motion.a
-                href="#contact"
+          {doubled.map((s, i) => {
+            const cardBg = "linear-gradient(" + s.overlay + "), url('" + s.image + "') center/cover no-repeat";
+            return (
+              <motion.div
+                key={i}
                 whileHover={{
-                  rotate: 45,
-                  scale: 1.1,
-                  backgroundColor: "rgba(255,255,255,0.95)",
-                  color: "#060C18",
+                  y: -10,
+                  scale: 1.02,
+                  transition: { type: "spring", stiffness: 300, damping: 20 },
                 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="relative z-[1] w-12 h-12 rounded-full bg-white/15 flex items-center justify-center text-lg self-end border border-white/20"
+                className="flex-[0_0_320px] h-[420px] rounded-2xl p-9 px-8 flex flex-col justify-between relative overflow-hidden text-white group max-[900px]:flex-[0_0_280px] max-[900px]:h-[380px] max-[600px]:flex-[0_0_260px] max-[600px]:h-[340px] max-[600px]:p-7 max-[600px]:rounded-2xl"
+                style={{ background: cardBg }}
               >
-                ↗
-              </motion.a>
-            </motion.div>
-          ))}
+                <div className="absolute inset-0 bg-gradient-to-br from-accent-light/0 to-accent-light/0 group-hover:from-accent-light/10 group-hover:to-transparent transition-all duration-500 pointer-events-none" />
+
+                <div className="relative z-[1]">
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    className="text-[11px] font-semibold tracking-[0.1em] uppercase mb-5 inline-block px-3 py-1 rounded-full bg-white/10 border border-white/15 backdrop-blur-sm"
+                    style={{ color: "#A8BEFF" }}
+                  >
+                    {s.tag}
+                  </motion.div>
+
+                  <h3 className="font-display text-[28px] font-extrabold tracking-[-0.8px] leading-[1.1] mb-4 max-[600px]:text-[22px]">
+                    {s.title}
+                  </h3>
+
+                  <p className="text-sm leading-[1.7] font-light opacity-75 max-w-[240px]">
+                    {s.value}
+                  </p>
+                </div>
+
+                <motion.a
+                  href="#contact"
+                  whileHover={{
+                    rotate: 45,
+                    scale: 1.1,
+                    backgroundColor: "rgba(255,255,255,0.95)",
+                    color: "#060C18",
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  className="relative z-[1] w-12 h-12 rounded-full bg-white/15 flex items-center justify-center text-lg self-end border border-white/20"
+                >
+                  ↗
+                </motion.a>
+              </motion.div>
+            );
+          })}
         </div>
       </motion.div>
     </section>
