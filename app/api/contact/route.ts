@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 type ContactPayload = {
   name: string;
   role?: string;
@@ -16,6 +14,36 @@ type ContactPayload = {
 
 export async function POST(request: Request) {
   try {
+    const apiKey = process.env.RESEND_API_KEY;
+    const fromEmail = process.env.FROM_EMAIL || "";
+    const contactEmail = process.env.CONTACT_EMAIL || "";
+
+    if (!apiKey) {
+      console.error("Missing RESEND_API_KEY");
+      return NextResponse.json(
+        { error: "Server configuration error: missing RESEND_API_KEY" },
+        { status: 500 }
+      );
+    }
+
+    if (!fromEmail) {
+      console.error("Missing FROM_EMAIL");
+      return NextResponse.json(
+        { error: "Server configuration error: missing FROM_EMAIL" },
+        { status: 500 }
+      );
+    }
+
+    if (!contactEmail) {
+      console.error("Missing CONTACT_EMAIL");
+      return NextResponse.json(
+        { error: "Server configuration error: missing CONTACT_EMAIL" },
+        { status: 500 }
+      );
+    }
+
+    const resend = new Resend(apiKey);
+
     const body: ContactPayload = await request.json();
 
     // Validación básica
@@ -33,9 +61,6 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
-
-    const fromEmail = process.env.FROM_EMAIL || "";
-    const contactEmail = process.env.CONTACT_EMAIL || "";
 
     // Enviamos los dos emails en paralelo para mayor rapidez
     const [internalResult, confirmationResult] = await Promise.all([
@@ -61,11 +86,12 @@ export async function POST(request: Request) {
     if (internalResult.error) {
       console.error("Internal email error:", internalResult.error);
     }
+
     if (confirmationResult.error) {
       console.error("Confirmation email error:", confirmationResult.error);
     }
 
-    // Si al menos el interno se envió, consideramos éxito
+    // Si ambos fallan, error
     if (internalResult.error && confirmationResult.error) {
       return NextResponse.json(
         { error: "Failed to send emails" },
@@ -158,8 +184,6 @@ function buildConfirmationEmail(data: ContactPayload): string {
   <table width="100%" cellpadding="0" cellspacing="0" style="background:#F5F7FA;padding:40px 20px;">
     <tr><td align="center">
       <table width="600" cellpadding="0" cellspacing="0" style="background:#FFFFFF;border-radius:16px;overflow:hidden;max-width:600px;">
-
-        <!-- Header con logo -->
         <tr><td style="background:#111111;padding:40px 40px;text-align:left;">
           <img src="https://www.teliolabs.io/Telio-Labs.svg" alt="TelioLabs" width="140" style="display:block;margin-bottom:28px;height:auto;" />
           <div style="color:#A8BEFF;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:10px;">Message Received</div>
@@ -171,7 +195,6 @@ function buildConfirmationEmail(data: ContactPayload): string {
           </p>
         </td></tr>
 
-        <!-- Body -->
         <tr><td style="padding:40px 40px 32px;">
           <p style="color:#0D1828;font-size:16px;line-height:1.7;margin:0 0 20px;">
             Hi ${escapeHtml(firstName)},
@@ -184,7 +207,6 @@ function buildConfirmationEmail(data: ContactPayload): string {
           </p>
         </td></tr>
 
-        <!-- CTA buttons -->
         <tr><td style="padding:0 40px 32px;">
           <table cellpadding="0" cellspacing="0">
             <tr>
@@ -198,10 +220,8 @@ function buildConfirmationEmail(data: ContactPayload): string {
           </table>
         </td></tr>
 
-        <!-- Divider -->
         <tr><td style="padding:0 40px;"><div style="height:1px;background:#E2E8F0;"></div></td></tr>
 
-        <!-- What happens next -->
         <tr><td style="padding:32px 40px;">
           <h2 style="color:#0D1828;font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin:0 0 20px;">What happens next</h2>
           <table width="100%" cellpadding="0" cellspacing="0">
@@ -211,7 +231,6 @@ function buildConfirmationEmail(data: ContactPayload): string {
           </table>
         </td></tr>
 
-        <!-- Signature -->
         <tr><td style="padding:0 40px 40px;">
           <p style="color:#0D1828;font-size:15px;line-height:1.7;margin:0 0 6px;">
             Talk soon,
@@ -221,7 +240,6 @@ function buildConfirmationEmail(data: ContactPayload): string {
           </p>
         </td></tr>
 
-        <!-- Footer -->
         <tr><td style="background:#F5F7FA;padding:24px 40px;border-top:1px solid #E2E8F0;">
           <p style="color:#6B7D9C;font-size:12px;margin:0 0 4px;line-height:1.6;">
             TelioLabs · Las Vegas, NV · USA
@@ -230,7 +248,6 @@ function buildConfirmationEmail(data: ContactPayload): string {
             You received this email because you submitted the contact form on <a href="https://www.teliolabs.io" style="color:#6B7D9C;text-decoration:underline;">teliolabs.io</a>.
           </p>
         </td></tr>
-
       </table>
     </td></tr>
   </table>
