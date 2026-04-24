@@ -105,6 +105,7 @@ export default function ServicesTicker() {
     const onLeave = () => {
       if (!state.current.dragging) state.current.paused = false;
     };
+
     const onMouseDown = (e: MouseEvent) => {
       state.current.dragging = true;
       state.current.paused = true;
@@ -112,12 +113,14 @@ export default function ServicesTicker() {
       state.current.dragStartOffset = state.current.offset;
       track.classList.add("cursor-grabbing");
     };
+
     const onMouseUp = () => {
       if (!state.current.dragging) return;
       state.current.dragging = false;
       track.classList.remove("cursor-grabbing");
       state.current.paused = false;
     };
+
     const onMouseMove = (e: MouseEvent) => {
       if (!state.current.dragging) return;
       const dx = state.current.dragStartX - e.clientX;
@@ -130,11 +133,13 @@ export default function ServicesTicker() {
 
     let touchStartX = 0;
     let touchStartOffset = 0;
+
     const onTouchStart = (e: TouchEvent) => {
       state.current.paused = true;
       touchStartX = e.touches[0].clientX;
       touchStartOffset = state.current.offset;
     };
+
     const onTouchMove = (e: TouchEvent) => {
       const dx = touchStartX - e.touches[0].clientX;
       let next = touchStartOffset + dx;
@@ -143,7 +148,10 @@ export default function ServicesTicker() {
       if (next >= half) next -= half;
       state.current.offset = next;
     };
-    const onTouchEnd = () => (state.current.paused = false);
+
+    const onTouchEnd = () => {
+      state.current.paused = false;
+    };
 
     track.addEventListener("mouseenter", onEnter);
     track.addEventListener("mouseleave", onLeave);
@@ -236,10 +244,6 @@ export default function ServicesTicker() {
         transition={{ duration: 0.8, delay: 0.3 }}
         className="overflow-hidden relative"
       >
-        {/* Fade gradient en los bordes para suavizar el loop visual */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-bg to-transparent z-10 pointer-events-none max-[600px]:w-12" />
-        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-bg to-transparent z-10 pointer-events-none max-[600px]:w-12" />
-
         <div
           ref={trackRef}
           className="flex gap-4 pb-2 cursor-grab select-none will-change-transform"
@@ -268,9 +272,11 @@ export default function ServicesTicker() {
                 >
                   {s.tag}
                 </motion.div>
+
                 <h3 className="font-display text-[28px] font-extrabold tracking-[-0.8px] leading-[1.1] mb-4 max-[600px]:text-[22px]">
                   {s.title}
                 </h3>
+
                 <p className="text-sm leading-[1.7] font-light opacity-75 max-w-[240px]">
                   {s.value}
                 </p>

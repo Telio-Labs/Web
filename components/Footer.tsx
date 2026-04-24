@@ -49,10 +49,10 @@ export default function Footer() {
         <FooterCol title="Contact">
           <div className="text-sm text-[#c8d7ff]/50 mb-2.5 font-light">
             <a
-              href="mailto:hello@teliolabs.com"
+              href="mailto:hello@teliolabs.io"
               className="text-[#c8d7ff]/50 hover:text-white transition-colors"
             >
-              hello@teliolabs.com
+              hello@teliolabs.io
             </a>
           </div>
           <div className="text-sm text-[#c8d7ff]/50 mb-2.5 font-light">
@@ -87,7 +87,7 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="py-5 px-[5vw] border-t border-white/5 flex items-center justify-between flex-wrap gap-3 max-[600px]:py-4 max-[600px]:px-[4vw] max-[600px]:flex-col max-[600px]:items-start max-[600px]:gap-2">
         <p className="text-xs text-[#c8d7ff]/30">
-          © 2025 TelioLabs, Inc. All rights reserved.
+          © 2026 TelioLabs, Inc. All rights reserved.
         </p>
         <div className="flex gap-5">
           <a

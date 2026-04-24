@@ -48,7 +48,6 @@ const ITEMS: Item[] = [
   },
 ];
 
-// Variantes de animación para el contenido interior (staggered)
 const contentVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -111,15 +110,22 @@ export default function ServicesCarousel() {
                   mass: 0.9,
                 }}
                 className={`
-                  relative overflow-hidden border-0 cursor-pointer text-left
+                  relative overflow-hidden cursor-pointer text-left
                   rounded-2xl flex flex-col justify-end bg-navy
+                  border-0 outline-none appearance-none
+                  focus:outline-none focus-visible:outline-none
+                  focus:ring-0 focus-visible:ring-0
                   max-[900px]:rounded-xl max-[600px]:rounded-[10px]
                   ${!isActive ? "min-w-[60px] max-[600px]:min-w-[48px]" : ""}
                 `}
+                style={{
+                  WebkitTapHighlightColor: "transparent",
+                  background: "#060C18",
+                }}
               >
                 {/* Imagen de fondo con zoom sutil al activar */}
                 <motion.div
-                  className="bg-photo"
+                  className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                   animate={{ scale: isActive ? 1.05 : 1 }}
                   transition={{ duration: 1.2, ease: "easeOut" }}
                   style={{ backgroundImage: `url(${item.image})` }}
@@ -186,7 +192,7 @@ export default function ServicesCarousel() {
                   )}
                 </AnimatePresence>
 
-                {/* Contenido activo - ALINEADO IZQUIERDA */}
+                {/* Contenido activo */}
                 <AnimatePresence mode="wait">
                   {isActive && (
                     <motion.div
@@ -250,7 +256,8 @@ export default function ServicesCarousel() {
               backgroundColor: i === active ? "#4A6FE8" : "#E2E8F0",
             }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="h-0.5 rounded-[2px] cursor-pointer"
+            className="h-0.5 rounded-[2px] cursor-pointer border-0 outline-none focus:outline-none"
+            style={{ WebkitTapHighlightColor: "transparent" }}
             aria-label={`Go to slide ${i + 1}`}
           />
         ))}

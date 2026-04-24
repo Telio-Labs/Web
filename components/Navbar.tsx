@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const NAV_LINKS = [
-  { href: "#about", label: "About Us" },
+  { href: "/about", label: "About Us" }, 
   { href: "#services", label: "Software" },
   { href: "#services", label: "Digital Marketing" },
   { href: "#work", label: "Work" },
@@ -18,9 +18,10 @@ export default function Navbar() {
           width={140}
           height={32}
           priority
-          className="h-8 w-auto max-[600px]:h-7"
-        />
-      </Link>
+          style={{ height: "32px", width: "auto" }}
+    className="max-[600px]:!h-7"
+  />
+</Link>
 
       <ul className="hidden md:flex gap-1 list-none justify-center">
         {NAV_LINKS.map((link) => (
