@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   },
   appleWebApp: {
     capable: true,
-    statusBarStyle: "black",
+    statusBarStyle: "black-translucent",
     title: "TelioLabs",
   },
 };
@@ -43,6 +43,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${bricolage.variable} ${dmSans.variable}`}>
+      <head>
+        <meta name="theme-color" content="#111111" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta
+          name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent"
+        />
+      </head>
       <body className="bg-bg text-text font-sans leading-relaxed antialiased overflow-x-clip">
         {children}
       </body>
