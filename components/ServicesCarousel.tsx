@@ -64,36 +64,6 @@ const ITEMS: Item[] = [
   },
 ];
 
-// Variants corregidos - usando strings para ease en lugar de arrays
-const contentVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.4, ease: "easeOut" },
-  },
-  exit: {
-    opacity: 0,
-    y: -20,
-    transition: { duration: 0.3, ease: "easeIn" },
-  },
-};
-
-const staggerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.07,
-      delayChildren: 0.1,
-    },
-  },
-  exit: {
-    opacity: 0,
-    transition: { duration: 0.3 },
-  },
-};
-
 export default function ServicesCarousel() {
   const [active, setActive] = useState(0);
   const [hovered, setHovered] = useState(false);
@@ -101,9 +71,8 @@ export default function ServicesCarousel() {
   const [isMounted, setIsMounted] = useState(false);
   const [progress, setProgress] = useState(0);
   const progressIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  const slideDuration = 5000; // 5 segundos por slide
+  const slideDuration = 5000;
 
-  // Detener y limpiar el intervalo de progreso
   const stopProgress = useCallback(() => {
     if (progressIntervalRef.current) {
       clearInterval(progressIntervalRef.current);
@@ -111,7 +80,6 @@ export default function ServicesCarousel() {
     }
   }, []);
 
-  // Iniciar el progreso de la barra
   const startProgress = useCallback(() => {
     stopProgress();
     setProgress(0);
@@ -127,10 +95,9 @@ export default function ServicesCarousel() {
         stopProgress();
         setActive((prev) => (prev + 1) % ITEMS.length);
       }
-    }, 16); // ~60fps
+    }, 16);
   }, [stopProgress]);
 
-  // Resetear progreso cuando cambia el slide activo
   useEffect(() => {
     if (!hovered && !isMobile) {
       startProgress();
@@ -138,7 +105,6 @@ export default function ServicesCarousel() {
     return () => stopProgress();
   }, [active, hovered, isMobile, startProgress, stopProgress]);
 
-  // Detect viewport
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
     check();
@@ -163,7 +129,6 @@ export default function ServicesCarousel() {
     );
   }
 
-  // MOBILE
   if (isMobile) {
     return (
       <MobileCarousel
@@ -175,7 +140,6 @@ export default function ServicesCarousel() {
     );
   }
 
-  // DESKTOP
   return (
     <section id="services" className="bg-bg overflow-hidden p-0">
       <div
@@ -214,7 +178,6 @@ export default function ServicesCarousel() {
                   background: "#060C18",
                 }}
               >
-                {/* Imagen con crossfade suave */}
                 <motion.div
                   className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                   animate={{ 
@@ -225,13 +188,11 @@ export default function ServicesCarousel() {
                   style={{ backgroundImage: `url(${item.image})` }}
                 />
 
-                {/* Overlay con gradiente */}
                 <div
                   className="absolute inset-0 z-[1] transition-opacity duration-500"
                   style={{ background: item.gradient }}
                 />
 
-                {/* Barra de progreso en la parte superior (solo para slide activo) */}
                 {isActive && (
                   <motion.div
                     initial={{ width: "0%" }}
@@ -242,7 +203,6 @@ export default function ServicesCarousel() {
                   />
                 )}
 
-                {/* Decoraciones */}
                 <AnimatePresence>
                   {isActive && (
                     <>
@@ -266,7 +226,6 @@ export default function ServicesCarousel() {
                   )}
                 </AnimatePresence>
 
-                {/* Flecha lateral para slides inactivos */}
                 <AnimatePresence>
                   {!isActive && (
                     <motion.div
@@ -281,7 +240,6 @@ export default function ServicesCarousel() {
                   )}
                 </AnimatePresence>
 
-                {/* Label rotado para slides inactivos */}
                 <AnimatePresence>
                   {!isActive && (
                     <motion.div
@@ -297,26 +255,29 @@ export default function ServicesCarousel() {
                   )}
                 </AnimatePresence>
 
-                {/* Contenido del slide activo */}
                 <AnimatePresence mode="wait">
                   {isActive && (
                     <motion.div
                       key={`content-${i}`}
-                      variants={staggerVariants}
-                      initial="hidden"
-                      animate="visible"
-                      exit="exit"
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -30 }}
+                      transition={{ duration: 0.4 }}
                       className="absolute inset-0 z-[2] flex flex-col justify-end items-start text-left p-16 max-[900px]:p-9"
                     >
                       <motion.div
-                        variants={contentVariants}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.05 }}
                         className="text-xs font-semibold text-accent-light/60 tracking-[0.16em] mb-5"
                       >
                         0{i + 1}
                       </motion.div>
 
                       <motion.h3
-                        variants={contentVariants}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.1 }}
                         className="font-display font-extrabold tracking-[-2px] leading-[1.05] mb-5 text-white max-w-[640px] whitespace-pre-line text-left"
                         style={{ fontSize: "clamp(36px, 4.5vw, 72px)" }}
                       >
@@ -324,7 +285,9 @@ export default function ServicesCarousel() {
                       </motion.h3>
 
                       <motion.p
-                        variants={contentVariants}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.15 }}
                         className="text-[#c8d7ff]/80 leading-[1.75] max-w-[500px] font-light mb-9 text-left max-[900px]:text-sm max-[900px]:mb-6"
                         style={{ fontSize: "clamp(14px, 1.2vw, 17px)" }}
                       >
@@ -332,7 +295,9 @@ export default function ServicesCarousel() {
                       </motion.p>
 
                       <motion.a
-                        variants={contentVariants}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.2 }}
                         href="#contact"
                         whileHover={{ y: -2, scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
@@ -349,7 +314,6 @@ export default function ServicesCarousel() {
         </div>
       </div>
 
-      {/* Dots desktop con efecto de progreso */}
       <div className="flex gap-2 px-[5vw] pt-5 items-center bg-bg">
         {ITEMS.map((_, i) => (
           <div key={i} className="relative h-0.5 rounded-full overflow-hidden bg-white/20" style={{ width: i === active ? 36 : 20 }}>
@@ -376,10 +340,6 @@ export default function ServicesCarousel() {
     </section>
   );
 }
-
-/* ─────────────────────────────────────────────
-   MOBILE CAROUSEL
-   ───────────────────────────────────────────── */
 
 type MobileCarouselProps = {
   items: Item[];
@@ -425,7 +385,6 @@ function MobileCarousel({
     }, 16);
   }, [stopProgress, active, items.length, setActive]);
 
-  // Reset progress on active change
   useEffect(() => {
     startProgress();
     return () => stopProgress();
@@ -459,7 +418,6 @@ function MobileCarousel({
         className="relative px-3 pt-3 pb-4"
         style={{ height: "calc(100vh - 68px)", minHeight: 540 }}
       >
-        {/* Barra de progreso superior */}
         <div className="absolute top-3 left-3 right-3 h-1 bg-white/20 rounded-full overflow-hidden z-10">
           <motion.div
             className="h-full bg-accent-light rounded-full"
@@ -481,42 +439,42 @@ function MobileCarousel({
               initial={{ opacity: 0, x: 60 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -60 }}
-              transition={{ duration: 0.35, ease: "easeInOut" }}
+              transition={{ duration: 0.35 }}
               className="relative h-full w-full"
             >
-              {/* Imagen */}
               <div
                 className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                 style={{ backgroundImage: `url(${item.image})` }}
               />
 
-              {/* Overlay */}
               <div
                 className="absolute inset-0"
                 style={{ background: item.gradient }}
               />
 
-              {/* Decoraciones */}
               <div className="absolute -top-16 -right-16 w-[260px] h-[260px] rounded-full border border-white/5" />
               <div className="absolute -top-4 -right-4 w-[140px] h-[140px] rounded-full border border-white/5" />
 
-              {/* Content */}
               <motion.div
-                variants={staggerVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.4 }}
                 className="absolute inset-0 z-[2] flex flex-col justify-end p-7"
               >
                 <motion.div
-                  variants={contentVariants}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.05 }}
                   className="text-xs font-semibold text-accent-light/60 tracking-[0.16em] mb-4"
                 >
                   0{active + 1} / 0{items.length}
                 </motion.div>
 
                 <motion.h3
-                  variants={contentVariants}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.1 }}
                   className="font-display font-extrabold tracking-[-1.5px] leading-[1.05] mb-4 text-white whitespace-pre-line"
                   style={{ fontSize: "clamp(34px, 9vw, 48px)" }}
                 >
@@ -524,14 +482,18 @@ function MobileCarousel({
                 </motion.h3>
 
                 <motion.p
-                  variants={contentVariants}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.15 }}
                   className="text-[#c8d7ff]/80 text-[14px] leading-[1.65] font-light mb-7"
                 >
                   {item.desc}
                 </motion.p>
 
                 <motion.div
-                  variants={contentVariants}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.2 }}
                   className="flex items-center gap-3"
                 >
                   <a
@@ -551,7 +513,6 @@ function MobileCarousel({
         </div>
       </div>
 
-      {/* Dots mobile */}
       <div className="flex gap-2 px-5 pb-5 pt-2 items-center justify-center bg-bg">
         {items.map((_, i) => (
           <button
