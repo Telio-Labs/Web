@@ -215,7 +215,7 @@ export default function ServicesCarousel() {
                       transition={{ duration: 0.3 }}
                       className="absolute top-8 left-1/2 -translate-x-1/2 z-[2] w-8 h-8 rounded-full border border-white/15 flex items-center justify-center text-white/40 text-sm hover:border-accent-light/40 hover:text-accent-light transition-colors"
                     >
-                      →
+                      &rarr;
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -275,7 +275,7 @@ export default function ServicesCarousel() {
                         whileTap={{ scale: 0.98 }}
                         className="inline-flex items-center gap-2.5 bg-accent-light text-navy font-sans font-medium text-sm px-7 py-3 rounded-full w-fit max-[900px]:text-[13px] max-[900px]:px-[22px] max-[900px]:py-[11px]"
                       >
-                        Learn More →
+                        Learn More &rarr;
                       </motion.a>
                     </motion.div>
                   )}
@@ -413,14 +413,14 @@ function MobileCarousel({
                 variants={itemVariants}
                 className="flex items-center gap-3"
               >
-                
+                <a
                   href="#contact"
                   className="inline-flex items-center gap-2 bg-accent-light text-navy font-sans font-medium text-sm px-6 py-3 rounded-full"
                 >
-                  Learn More →
+                  Learn More &rarr;
                 </a>
                 <div className="text-[11px] text-white/40 tracking-[0.06em] uppercase ml-2">
-                  Swipe →
+                  Swipe &rarr;
                 </div>
               </motion.div>
             </motion.div>
