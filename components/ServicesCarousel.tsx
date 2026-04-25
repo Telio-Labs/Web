@@ -64,17 +64,33 @@ const ITEMS: Item[] = [
   },
 ];
 
+// Variants corregidos - usando strings para ease en lugar de arrays
 const contentVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] },
+    transition: { duration: 0.4, ease: "easeOut" },
   },
   exit: {
     opacity: 0,
     y: -20,
-    transition: { duration: 0.3, ease: [0.25, 0.1, 0.25, 1] },
+    transition: { duration: 0.3, ease: "easeIn" },
+  },
+};
+
+const staggerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.07,
+      delayChildren: 0.1,
+    },
+  },
+  exit: {
+    opacity: 0,
+    transition: { duration: 0.3 },
   },
 };
 
@@ -112,7 +128,7 @@ export default function ServicesCarousel() {
         setActive((prev) => (prev + 1) % ITEMS.length);
       }
     }, 16); // ~60fps
-  }, [stopProgress, slideDuration]);
+  }, [stopProgress]);
 
   // Resetear progreso cuando cambia el slide activo
   useEffect(() => {
@@ -286,26 +302,10 @@ export default function ServicesCarousel() {
                   {isActive && (
                     <motion.div
                       key={`content-${i}`}
+                      variants={staggerVariants}
                       initial="hidden"
                       animate="visible"
                       exit="exit"
-                      variants={{
-                        hidden: { opacity: 0, y: 30 },
-                        visible: {
-                          opacity: 1,
-                          y: 0,
-                          transition: {
-                            duration: 0.5,
-                            ease: [0.25, 0.1, 0.25, 1],
-                            staggerChildren: 0.07,
-                          },
-                        },
-                        exit: {
-                          opacity: 0,
-                          y: -30,
-                          transition: { duration: 0.3 },
-                        },
-                      }}
                       className="absolute inset-0 z-[2] flex flex-col justify-end items-start text-left p-16 max-[900px]:p-9"
                     >
                       <motion.div
@@ -481,7 +481,7 @@ function MobileCarousel({
               initial={{ opacity: 0, x: 60 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -60 }}
-              transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
+              transition={{ duration: 0.35, ease: "easeInOut" }}
               className="relative h-full w-full"
             >
               {/* Imagen */}
@@ -502,26 +502,10 @@ function MobileCarousel({
 
               {/* Content */}
               <motion.div
+                variants={staggerVariants}
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: {
-                    opacity: 1,
-                    y: 0,
-                    transition: {
-                      duration: 0.4,
-                      ease: [0.25, 0.1, 0.25, 1],
-                      staggerChildren: 0.07,
-                    },
-                  },
-                  exit: {
-                    opacity: 0,
-                    y: -20,
-                    transition: { duration: 0.3 },
-                  },
-                }}
                 className="absolute inset-0 z-[2] flex flex-col justify-end p-7"
               >
                 <motion.div
