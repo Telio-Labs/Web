@@ -49,7 +49,7 @@ export default function Footer() {
         <FooterCol title="Contact">
           <div className="text-sm text-[#c8d7ff]/50 mb-2.5 font-light">
             <a
-              href="mailto:hello@teliolabs.io"
+              href="mailto:hello@teliolabs.ai"
               className="text-[#c8d7ff]/50 hover:text-white transition-colors"
             >
               hello@teliolabs.io
