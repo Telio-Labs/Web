@@ -65,7 +65,7 @@ export default function ContactInfo() {
             </div>
             <div className="min-w-0 flex-1 pt-0.5">
               <div className="text-[14px] font-semibold text-navy">Email</div>
-              <a href="mailto:hello@teliolabs.io" className="text-[13px] text-accent hover:underline break-all">hello@teliolabs.io</a>
+              <a href="mailto:hello@teliolabs.ai" className="text-[13px] text-accent hover:underline break-all">hello@teliolabs.io</a>
             </div>
           </div>
           <div className="flex items-start gap-3">
