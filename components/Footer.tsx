@@ -52,7 +52,7 @@ export default function Footer() {
               href="mailto:hello@teliolabs.ai"
               className="text-[#c8d7ff]/50 hover:text-white transition-colors"
             >
-              hello@teliolabs.io
+              hello@teliolabs.ai
             </a>
           </div>
           <div className="text-sm text-[#c8d7ff]/50 mb-2.5 font-light">
